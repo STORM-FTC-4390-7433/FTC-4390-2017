@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -98,14 +102,12 @@ public class TeleOp extends OpMode {
     }
 
     double scaleInput(double dVal) {
-        double[] scaleArray = {0.0, 0.05, 0.10, 0.15, 0.17, 0.20, 0.25, 0.30,
-                0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.00};
-
-        //Original scaleInput value array
-
-           /*double scaleInput(double dVal)  {
-        double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };*/
+        // Define the values for the scale. Notice how the values don't change by a lot at the
+        // beginning but change a lot at the higher levels? This means that there will be a
+        // small change in speed when you move the stick a little bit, but a large change
+        // in speed as you push more. You can change these values to adjust that.
+        double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
+                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
 
         // get the corresponding index for the scaleInput array.
         int index = (int) (dVal * 16.0);

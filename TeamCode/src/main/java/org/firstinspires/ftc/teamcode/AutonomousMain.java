@@ -7,10 +7,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
-/**
- * Created by FTC-4390 on 11/16/2017.
- */
 
 @Autonomous(name="MainAutonomous", group="Autonomous")  // @Autonomous(...) is the other common choice
 public class AutonomousMain extends LinearOpMode {
@@ -30,6 +28,7 @@ public class AutonomousMain extends LinearOpMode {
     //private DcMotor conveyor = null;
     private CRServo leftArmServo = null;
     private CRServo rightArmServo = null;
+    private ColorSensor jewelColorSensor = null;
     private int programState = 1;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1368 ;    // eg: TETRIX Motor Encoder
