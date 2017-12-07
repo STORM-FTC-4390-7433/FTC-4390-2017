@@ -19,6 +19,9 @@ public class TestAutonomous extends LinearOpMode{
         sensor = hardwareMap.colorSensor.get("jewelSensor");
         leftArmServo = hardwareMap.servo.get("leftArmServo");
         while (true) {
+            telemetry.addData("Color Red", sensor.red());
+            telemetry.addData("Color Blue", sensor.blue());
+            telemetry.update();
             leftArmServo.setPosition(sensor.red() > sensor.blue() ? 0.4 : 0.6);
         }
     }

@@ -47,8 +47,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  *
  * @see Telemetry
  */
-@Autonomous(name = "Concept: Telemetry", group = "Autonomous")
-
+@Autonomous(name = "Concept: Telemetry", group = "Concept")
+@Disabled
 public class ConceptTelemetry extends LinearOpMode  {
     /** keeps track of the line of the poem which is to be emitted next */
     int poemLine = 0;
@@ -88,9 +88,9 @@ public class ConceptTelemetry extends LinearOpMode  {
         ElapsedTime opmodeRunTime = new ElapsedTime();
 
         // We show the log in oldest-to-newest order, as that's better for poetry
-        //telemetry.log().setDisplayOrder(Telemetry.Log.DisplayOrder.OLDEST_FIRST);
+        telemetry.log().setDisplayOrder(Telemetry.Log.DisplayOrder.OLDEST_FIRST);
         // We can control the number of lines shown in the log
-        //telemetry.log().setCapacity(6);
+        telemetry.log().setCapacity(6);
         // The interval between lines of poetry, in seconds
         double sPoemInterval = 0.6;
 
