@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -22,7 +18,7 @@ public class TeleOp extends OpMode {
     private DcMotor leftArmMotor = null;
     private DcMotor rightArmMotor = null;
     private DcMotor centralArmMotor = null;
-    private CRServo leftArmServo = null;
+    private Servo leftArmServo = null;
     private Servo rightArmServo = null;
 
     public void init() {
@@ -33,9 +29,8 @@ public class TeleOp extends OpMode {
         leftArmMotor = hardwareMap.dcMotor.get("leftArmMotor");
         rightArmMotor = hardwareMap.dcMotor.get("rightArmMotor");
         centralArmMotor = hardwareMap.dcMotor.get("centralArmMotor");
-        leftArmServo = hardwareMap.crservo.get("leftArmServo");
+        leftArmServo = hardwareMap.servo.get("leftArmServo");
         rightArmServo = hardwareMap.servo.get("rightArmServo");
-
 
         leftMotor1.setDirection(DcMotor.Direction.REVERSE);
         rightMotor1.setDirection(DcMotor.Direction.FORWARD);
@@ -71,18 +66,21 @@ public class TeleOp extends OpMode {
 
         //rotate the left arm in or out
         if (gamepad2.left_bumper) {
-            leftArmServo.setPower(0.3);
+            leftArmServo.setPosition(1);
         } else if (gamepad2.left_trigger > 0) {
-            leftArmServo.setPower(-0.3);
+            leftArmServo.setPosition(0);
         } else {
-            leftArmServo.setPower(0);
+            leftArmServo.setPosition(.5);
         }
 
         //rotate the right arm in or out
-        if (gamepad2.right_bumper)
-            rightArmServo.setPosition(0.3);
-        else if (gamepad2.right_trigger > 0)
-            rightArmServo.setPosition(0);
+        if (gamepad2.right_bumper) {
+            leftArmServo.setPosition(0);
+        } else if (gamepad2.right_trigger > 0) {
+            leftArmServo.setPosition(1);
+        } else {
+            leftArmServo.setPosition(.5);
+        }
 
 
         throttleRight = Range.clip(throttleRight, -1, 1);
@@ -102,12 +100,14 @@ public class TeleOp extends OpMode {
     }
 
     double scaleInput(double dVal) {
-        // Define the values for the scale. Notice how the values don't change by a lot at the
-        // beginning but change a lot at the higher levels? This means that there will be a
-        // small change in speed when you move the stick a little bit, but a large change
-        // in speed as you push more. You can change these values to adjust that.
-        double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
-                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00};
+        double[] scaleArray = {0.0, 0.05, 0.10, 0.15, 0.17, 0.20, 0.25, 0.30,
+                0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.00};
+
+        //Original scaleInput value array
+
+           /*double scaleInput(double dVal)  {
+        double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
+                0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };*/
 
         // get the corresponding index for the scaleInput array.
         int index = (int) (dVal * 16.0);
