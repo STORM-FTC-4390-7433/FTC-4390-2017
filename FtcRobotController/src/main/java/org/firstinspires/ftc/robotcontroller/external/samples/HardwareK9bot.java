@@ -29,10 +29,13 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
+
 
 /**
  * This is NOT an opmode.
@@ -55,10 +58,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareK9bot
 {
     /* Public OpMode members. */
-    public DcMotor  leftDrive   = null;
+    /*public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
     public Servo    arm         = null;
-    public Servo    claw        = null;
+    public Servo    claw        = null;*/
+    public ModernRoboticsI2cColorSensor jewelSensor = null;
 
     public final static double ARM_HOME = 0.2;
     public final static double CLAW_HOME = 0.2;
@@ -81,23 +85,24 @@ public class HardwareK9bot
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
+
+        /*leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);*/
 
         // Set all motors to zero power
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        /*leftDrive.setPower(0);
+        rightDrive.setPower(0);*/
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        /*leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
 
         // Define and initialize ALL installed servos.
-        arm  = hwMap.get(Servo.class, "arm");
+        /*arm  = hwMap.get(Servo.class, "arm");
         claw = hwMap.get(Servo.class, "claw");
         arm.setPosition(ARM_HOME);
-        claw.setPosition(CLAW_HOME);
+        claw.setPosition(CLAW_HOME);*/
     }
 }

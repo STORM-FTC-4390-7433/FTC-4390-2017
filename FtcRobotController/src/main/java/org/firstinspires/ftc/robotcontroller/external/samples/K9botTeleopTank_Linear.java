@@ -85,8 +85,8 @@ public class K9botTeleopTank_Linear extends LinearOpMode {
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
             left = -gamepad1.left_stick_y;
             right = -gamepad1.right_stick_y;
-            robot.leftDrive.setPower(left);
-            robot.rightDrive.setPower(right);
+           /* robot.leftDrive.setPower(left);
+            robot.rightDrive.setPower(right);*/
 
             // Use gamepad Y & A raise and lower the arm
             if (gamepad1.a)
@@ -101,11 +101,11 @@ public class K9botTeleopTank_Linear extends LinearOpMode {
                 clawPosition -= CLAW_SPEED;
 
             // Move both servos to new position.
-            armPosition  = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
+            /*armPosition  = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
             robot.arm.setPosition(armPosition);
             clawPosition = Range.clip(clawPosition, robot.CLAW_MIN_RANGE, robot.CLAW_MAX_RANGE);
             robot.claw.setPosition(clawPosition);
-
+*/
             // Send telemetry message to signify robot running;
             telemetry.addData("arm",   "%.2f", armPosition);
             telemetry.addData("claw",  "%.2f", clawPosition);
