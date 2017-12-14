@@ -56,6 +56,10 @@ public class JewelAutonomous extends LinearOpMode{
         leftMotor1.setDirection(DcMotor.Direction.FORWARD);
         leftMotor2.setDirection(DcMotor.Direction.FORWARD);
 
+        // Set position for the servos
+        leftArmServo.setPosition(0);
+        rightArmServo
+
         // Set up telemetry to update the status
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
@@ -79,55 +83,20 @@ public class JewelAutonomous extends LinearOpMode{
         // Reset the runtime
         runtime.reset();
 
-        // Move forward
-        while (runtime.seconds() < .5) {
-            leftMotor1.setPower(.1);
-            leftMotor2.setPower(.1);
-            rightMotor1.setPower(.2);
-            rightMotor2.setPower(.2);
-        }
-
-        // Stop
-        leftMotor1.setPower(0);
-        leftMotor2.setPower(0);
-        rightMotor1.setPower(0);
-        rightMotor2.setPower(0);
-
-        // Display output of the color sensor reading
-        runtime.reset();
-        while (runtime.seconds() < 20) {
-            telemetry.addData("Color Number", "Red: " + jewelSensor.red() + ", Blue: " + jewelSensor.blue());
-            // telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
-            telemetry.update();
-        }
 
 
+        // Allow color sensor to detect jewel color for five seconds
+        sleep(5000);
 
         // If jewel sensor reads red at a reading of 20 or over
-        if (jewelSensor.red() >= 20) {
-            try {
-                thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        runtime.reset();
+        while (runtime.seconds() <= 20) {
+            if (jewelSensor.red() >= jewelSensor.blue()) {
+                rightArmServo.setPosition(0.5);
+            }
+            else if (jewelSensor.blue() >= jewelSensor.red()) {
+                rightArmServo.setPosition(0.5);
             }
         }
-
-
-/*        while (opModeIsActive()) {
-            waitForStart();
-
-            jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
-
-            telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
-            telemetry.update();
-
-            while (opModeIsActive()) {
-                telemetry.addData("Color Red", sensor.red());
-                telemetry.addData("Color Blue", sensor.blue());
-                telemetry.update();
-                leftArmServo.setPosition(sensor.red() > sensor.blue() ? 0.4 : 1.0);
-                //leftArmServo.setPosition(sensor.red() > sensor.blue());
-            }
-        }*/
     }
 }
