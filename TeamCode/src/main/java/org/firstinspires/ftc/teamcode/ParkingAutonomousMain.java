@@ -16,12 +16,17 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
 /**
  * Created by FTC-4390 on 11/28/2017.
  */
-@Autonomous(name="RealAutonomous", group="Autonomous")
-public class RealAutonomousMain extends LinearOpMode {
+@Autonomous(name="ParkingAutonomous", group="Autonomous")
+public class ParkingAutonomousMain extends LinearOpMode {
     private DcMotor leftMotor1 = null;
     private DcMotor leftMotor2 = null;
     private DcMotor rightMotor1 = null;
     private DcMotor rightMotor2 = null;
+    private DcMotor leftArmMotor = null;
+    private DcMotor rightArmMotor = null;
+    private DcMotor centralArmMotor = null;
+    private Servo leftArmServo = null;
+    private Servo rightArmServo = null;
     private ModernRoboticsI2cColorSensor jewelSensor = null;
     //private ColorSensor testSensor = null;
     private ElapsedTime runtime = new ElapsedTime();
@@ -33,6 +38,11 @@ public class RealAutonomousMain extends LinearOpMode {
         leftMotor2 = hardwareMap.dcMotor.get("leftMotor2");
         rightMotor1 = hardwareMap.dcMotor.get("rightMotor1");
         rightMotor2 = hardwareMap.dcMotor.get("rightMotor2");
+        leftArmMotor = hardwareMap.dcMotor.get("leftArmMotor");
+        rightArmMotor = hardwareMap.dcMotor.get("rightArmMotor");
+        centralArmMotor = hardwareMap.dcMotor.get("centralArmMotor");
+        leftArmServo = hardwareMap.servo.get("leftArmServo");
+        rightArmServo = hardwareMap.servo.get("rightArmServo");
         jewelSensor = hardwareMap.get(ModernRoboticsI2cColorSensor.class, "jewelSensor");
         //testSensor = hardwareMap.colorSensor.get("jewelSensor");
 
@@ -48,18 +58,42 @@ public class RealAutonomousMain extends LinearOpMode {
 
         waitForStart();
 
-        boolean enableLedOn = true;
-        robot.jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
+        runtime.reset();
 
-        telemetry.addData("Color Number", robot.jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
+        // Move forward
+        while (runtime.seconds() < .5) {
+            leftMotor1.setPower(.1);
+            leftMotor2.setPower(.1);
+            rightMotor1.setPower(.2);
+            rightMotor2.setPower(.2);
+        }
+
+        // Stop
+        leftMotor1.setPower(0);
+        leftMotor2.setPower(0);
+        rightMotor1.setPower(0);
+        rightMotor2.setPower(0);
+
+        runtime.reset();
+        // Move forward
+        while (runtime.seconds() < .5) {
+            leftMotor1.setPower(-.1);
+            leftMotor2.setPower(-.1);
+            rightMotor1.setPower(.2);
+            rightMotor2.setPower(.2);
+        }
+
+        jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
+
+        telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
         telemetry.update();
 
         while (opModeIsActive()) {
             waitForStart();
 
-            robot.jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
+            jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
 
-            telemetry.addData("Color Number", robot.jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
+            telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
             telemetry.update();
 
         }
@@ -69,7 +103,7 @@ public class RealAutonomousMain extends LinearOpMode {
             telemetry.update();
         }*/
 
-        /*runtime.reset();
+        runtime.reset();
 
         while (runtime.seconds() < 1.5) { // Turn Left
             leftMotor1.setPower(-.1);
@@ -96,7 +130,7 @@ public class RealAutonomousMain extends LinearOpMode {
         leftMotor1.setPower(0);
         leftMotor2.setPower(0);
         rightMotor1.setPower(0);
-        rightMotor2.setPower(0);*/
+        rightMotor2.setPower(0);
 
 
 

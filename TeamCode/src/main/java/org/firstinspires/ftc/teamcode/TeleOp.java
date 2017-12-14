@@ -22,6 +22,8 @@ public class TeleOp extends OpMode {
     private Servo rightArmServo = null;
 
     public void init() {
+
+        // Get motor and servo names
         leftMotor1 = hardwareMap.dcMotor.get("leftMotor1");
         rightMotor1 = hardwareMap.dcMotor.get("rightMotor1");
         leftMotor2 = hardwareMap.dcMotor.get("leftMotor2");
@@ -31,6 +33,8 @@ public class TeleOp extends OpMode {
         centralArmMotor = hardwareMap.dcMotor.get("centralArmMotor");
         leftArmServo = hardwareMap.servo.get("leftArmServo");
         rightArmServo = hardwareMap.servo.get("rightArmServo");
+
+        //leftArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftMotor1.setDirection(DcMotor.Direction.REVERSE);
         rightMotor1.setDirection(DcMotor.Direction.FORWARD);
@@ -45,11 +49,11 @@ public class TeleOp extends OpMode {
 
         //move the whole arm up or down
         if (gamepad2.y) {
-            leftArmMotor.setPower(.5);
-            rightArmMotor.setPower(-.5);
+            leftArmMotor.setPower(-.5);
+            rightArmMotor.setPower(.5);
         } else if (gamepad2.a) {
-            leftArmMotor.setPower(-.2);
-            rightArmMotor.setPower(.2);
+            leftArmMotor.setPower(.05);
+            rightArmMotor.setPower(-.05);
         } else {
             leftArmMotor.setPower(0);
             rightArmMotor.setPower(0);
@@ -65,23 +69,16 @@ public class TeleOp extends OpMode {
         }
 
         //rotate the left arm in or out
-        if (gamepad2.left_bumper) {
+        if (gamepad2.left_bumper)
             leftArmServo.setPosition(1);
-        } else if (gamepad2.left_trigger > 0) {
-            leftArmServo.setPosition(0);
-        } else {
-            leftArmServo.setPosition(.5);
-        }
+        else if (gamepad2.left_trigger > 0)
+            leftArmServo.setPosition(.75);
 
         //rotate the right arm in or out
-        if (gamepad2.right_bumper) {
-            leftArmServo.setPosition(0);
-        } else if (gamepad2.right_trigger > 0) {
-            leftArmServo.setPosition(1);
-        } else {
-            leftArmServo.setPosition(.5);
-        }
-
+        if (gamepad2.right_bumper)
+            rightArmServo.setPosition(0);
+        else if (gamepad2.right_trigger > 0)
+            rightArmServo.setPosition(.25);
 
         throttleRight = Range.clip(throttleRight, -1, 1);
         throttleLeft = Range.clip(throttleLeft, -1, 1);
