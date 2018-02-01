@@ -48,13 +48,13 @@ public class TeleOp extends OpMode {
         float throttleRight = gamepad1.right_stick_y;
 
         //move the whole arm up or down
-        if (gamepad2.y) {
+        if (gamepad2.y) { // Up
             leftArmMotor.setPower(-.5);
             rightArmMotor.setPower(.5);
-        } else if (gamepad2.a) {
+        } else if (gamepad2.a) { // Down
             leftArmMotor.setPower(.05);
             rightArmMotor.setPower(-.05);
-        } else {
+        } else { // Stop
             leftArmMotor.setPower(0);
             rightArmMotor.setPower(0);
         }

@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwareK9bot;
  * Created by FTC-4390 on 12/5/2017.
  */
 
-@Autonomous(name="JewelAutonomous", group="Autonomous")
-public class JewelAutonomous extends LinearOpMode{
+@Autonomous(name="RevisedAutonomousMain", group="Autonomous")
+public class RevisedAutonomousMain extends LinearOpMode{
 
     // Declare the motors, sensors, servos, and some variables
     private DcMotor leftMotor1 = null;
@@ -58,7 +58,7 @@ public class JewelAutonomous extends LinearOpMode{
 
         // Set position for the servos
         leftArmServo.setPosition(0);
-        rightArmServo
+        rightArmServo.setPosition(0);
 
         // Set up telemetry to update the status
         telemetry.addData("Status", "Ready to run");
@@ -83,20 +83,35 @@ public class JewelAutonomous extends LinearOpMode{
         // Reset the runtime
         runtime.reset();
 
-
-
-        // Allow color sensor to detect jewel color for five seconds
-        sleep(5000);
+        // Rotate the claw downward
+        while (runtime.seconds() < 0.5) {
+            rightArmMotor.setPower(.1);
+            leftArmMotor.setPower(-.1);
+        }
 
         // If jewel sensor reads red at a reading of 20 or over
         runtime.reset();
         while (runtime.seconds() <= 20) {
+
+            // Allow color sensor to detect jewel color for five seconds
+            sleep(5000);
+
+            // After color is detected, set position for right arm servo
             if (jewelSensor.red() >= jewelSensor.blue()) {
-                rightArmServo.setPosition(0.5);
+
             }
             else if (jewelSensor.blue() >= jewelSensor.red()) {
-                rightArmServo.setPosition(0.5);
+                leftArmServo.setPosition(1.0);
             }
+
+            // Move back from jewel station
+            rightMotor1.setPower(.05);
+            rightMotor2.setPower(.05);
+            leftMotor1.setPower(-.05);
+            leftMotor2.setPower(-.05);
+
         }
+
+
     }
 }

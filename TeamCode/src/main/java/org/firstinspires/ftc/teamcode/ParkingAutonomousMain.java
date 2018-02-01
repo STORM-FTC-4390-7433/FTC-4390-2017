@@ -30,7 +30,7 @@ public class ParkingAutonomousMain extends LinearOpMode {
     private ModernRoboticsI2cColorSensor jewelSensor = null;
     //private ColorSensor testSensor = null;
     private ElapsedTime runtime = new ElapsedTime();
-    HardwareK9bot robot = new HardwareK9bot();
+    //HardwareK9bot robot = new HardwareK9bot();
 
     public void runOpMode() {
         waitForStart();
@@ -43,7 +43,7 @@ public class ParkingAutonomousMain extends LinearOpMode {
         centralArmMotor = hardwareMap.dcMotor.get("centralArmMotor");
         leftArmServo = hardwareMap.servo.get("leftArmServo");
         rightArmServo = hardwareMap.servo.get("rightArmServo");
-        jewelSensor = hardwareMap.get(ModernRoboticsI2cColorSensor.class, "jewelSensor");
+        //jewelSensor = hardwareMap.get(ModernRoboticsI2cColorSensor.class, "jewelSensor");
         //testSensor = hardwareMap.colorSensor.get("jewelSensor");
 
         rightMotor1.setDirection(DcMotor.Direction.REVERSE);
@@ -51,7 +51,7 @@ public class ParkingAutonomousMain extends LinearOpMode {
         leftMotor1.setDirection(DcMotor.Direction.FORWARD);
         leftMotor2.setDirection(DcMotor.Direction.FORWARD);
 
-        robot.init(hardwareMap);
+        //robot.init(hardwareMap);
 
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
@@ -83,29 +83,9 @@ public class ParkingAutonomousMain extends LinearOpMode {
             rightMotor2.setPower(.2);
         }
 
-        jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
-
-        telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
-        telemetry.update();
-
-        while (opModeIsActive()) {
-            waitForStart();
-
-            jewelSensor.enableLed(true); // Turn light on detect color off of regular objects
-
-            telemetry.addData("Color Number", jewelSensor.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
-            telemetry.update();
-
-        }
-
-        /*while (opModeIsActive()) {
-            telemetry.addData("Color", "%.1f", testSensor.red());
-            telemetry.update();
-        }*/
-
         runtime.reset();
 
-        while (runtime.seconds() < 1.5) { // Turn Left
+        while (runtime.seconds() < 1) { // Turn Left
             leftMotor1.setPower(-.1);
             leftMotor2.setPower(-.1);
             rightMotor1.setPower(.2);
